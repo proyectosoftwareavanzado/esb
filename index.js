@@ -1,7 +1,7 @@
 process.env.NODE_ENV = "production";
 const express = require('express');
 const config = require('config');
-const port = 80;
+const port = 8000;
 const app = express();
 const Nodos = config.get('Nodos');
 const actual = config.get('Actual');
@@ -25,11 +25,11 @@ app.get('/PIM/obtenerCatalogo', (req, res)=>{
             url: 'http://35.231.130.137:'+portPim+'/PIM/obtenerCatalogo',
             json: true,
             headers: {
-                'scope': 'obtenerCatalogo',
-                'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6MSwicm9sZXMiOiJvYnRlbmVyQ2F0YWxvZ28sZW5yaXF1ZWNlckludmVudGFyaW8sb2J0ZW5lckludmVudGFyaW8scmVhbGl6YXJEZXNwYWNobyIsImlhdCI6MTU1NzU0Njc5MSwiZXhwIjoxNTU3NTUwMzkxfQ.DZLMgx71EhbhqKv_4EcLji33cBzpxY0p-kVRPaqH-wE'
+                'scope': req.header('scope'),
+                'authorization': req.header('authorization')
             }
         },function (error, response, body) {
-            var j = JSON.parse(body);
+            var j = JSON.parse(JSON.stringify(body));
             res.jsonp(j);
         });
     }
@@ -37,7 +37,8 @@ app.get('/PIM/obtenerCatalogo', (req, res)=>{
     {
 
         request.get('http://'+Pim+':'+portPim+'/obtenerCatalogo',function (error, response, body) {
-            res.jsonp(body);
+            var j = JSON.parse(JSON.stringify(body));
+            res.jsonp(j);
         });
     }
 });
@@ -55,13 +56,15 @@ app.get('/PIM/enriquecerProducto', (req, res)=>{
                 'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6MSwicm9sZXMiOiJvYnRlbmVyQ2F0YWxvZ28sZW5yaXF1ZWNlckludmVudGFyaW8sb2J0ZW5lckludmVudGFyaW8scmVhbGl6YXJEZXNwYWNobyIsImlhdCI6MTU1NzU0Njc5MSwiZXhwIjoxNTU3NTUwMzkxfQ.DZLMgx71EhbhqKv_4EcLji33cBzpxY0p-kVRPaqH-wE'
             }
         },function (error, response, body) {
-            res.jsonp(body);
+            var j = JSON.parse(JSON.stringify(body));
+            res.jsonp(j);
         });
     }
     else
     {
         request.get('http://'+Pim+':'+portPim+'/enriquecerProducto',function (error, response, body) {
-            res.jsonp(body);
+            var j = JSON.parse(JSON.stringify(body));
+            res.jsonp(j);
         });
     }
 });
