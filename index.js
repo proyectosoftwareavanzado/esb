@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const portPim = 8082;
-const portnodo = 8082;
+const portBodega = 8083;
 const portnodo2 = 3006;
 var request = require('request');
 
@@ -103,19 +103,24 @@ app.get('/Bodega/obtenerInventario',(req, res)=>{
 
     if(Bodega==actual)
     {
-        request.get({url:'http://'+req.body.destino+'/obtenerInventario',json:true,body:req.body},function (error, response, body) {
-
-            res.jsonp(body);
+        request.get({
+            url:'http://35.231.130.137:' + portBodega + '/Bodega/obtenerInventario',
+            json:true,
+            body:req.body
+        },function (error, response, body) {
+            var j = JSON.parse(JSON.stringify(body));
+            res.jsonp(j);
         });
     }
     else
     {
-        /*request.get({url:'http://'+Bodega+':'+portnodo2+'/Bodega/obtenerInventario',json:true,body:req.body},function (error, response, body) {
-            res.json(body);
-        });*/
-        request.get({url:'http://'+req.body.destino+'/obtenerInventario',json:true,body:req.body},function (error, response, body) {
-
-            res.jsonp(body);
+        request.get({
+            url:'http://'+req.body.destino+':'+portBodega+'/Bodega/obtenerInventario',
+            json:true,
+            body:req.body
+        },function (error, response, body) {
+            var j = JSON.parse(JSON.stringify(body));
+            res.jsonp(j);
         });
     }
 });
@@ -125,15 +130,24 @@ app.post('/Bodega/realizarDespacho',(req, res)=>{
 
     if(Bodega==actual)
     {
-        request.post({url:'http://'+/*req.body.destino*/'localhost'+':'+portnodo2+'/realizarDespacho',json:true,body:req.body},function (error, response, body) {
-
-            res.jsonp(body);
+        request.post({
+            url:'http://35.231.130.137:'+portBodega+'/Bodega/realizarDespacho',
+            json:true,
+            body:req.body
+        },function (error, response, body) {
+            var j = JSON.parse(JSON.stringify(body));
+            res.jsonp(j);
         });
     }
     else
     {
-        request.get({url:'http://'+Bodega+':'+portnodo2+'/Bodega/realizarDespacho',json:true,body:req.body},function (error, response, body) {
-            res.jsonp(body);
+        request.get({
+            url:'http://'+Bodega+':'+portBodega+'/Bodega/realizarDespacho',
+            json:true,
+            body:req.body
+        },function (error, response, body) {
+            var j = JSON.parse(JSON.stringify(body));
+            res.jsonp(j);
         });
     }
 });
