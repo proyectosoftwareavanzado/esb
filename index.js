@@ -1,15 +1,15 @@
 process.env.NODE_ENV = "production";
 const express = require('express');
 const config = require('config');
-const port = 80;
+const port = 8081;
 const app = express();
 const Nodos = config.get('Nodos');
 const actual = config.get('Actual');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const portPim = 8002;
-const portnodo = 8002;
+const portPim = 8082;
+const portnodo = 8082;
 const portnodo2 = 3006;
 var request = require('request');
 
