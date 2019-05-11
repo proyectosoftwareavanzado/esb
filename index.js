@@ -1,7 +1,7 @@
 process.env.NODE_ENV = "production";
 const express = require('express');
 const config = require('config');
-const port = 8000;
+const port = 80;
 const app = express();
 const Nodos = config.get('Nodos');
 const actual = config.get('Actual');
