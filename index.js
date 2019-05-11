@@ -52,8 +52,8 @@ app.get('/PIM/enriquecerProducto', (req, res)=>{
             json:true,
             body:req.body,
             headers: {
-                'scope': 'enriquecerProducto',
-                'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6MSwicm9sZXMiOiJvYnRlbmVyQ2F0YWxvZ28sZW5yaXF1ZWNlckludmVudGFyaW8sb2J0ZW5lckludmVudGFyaW8scmVhbGl6YXJEZXNwYWNobyIsImlhdCI6MTU1NzU0Njc5MSwiZXhwIjoxNTU3NTUwMzkxfQ.DZLMgx71EhbhqKv_4EcLji33cBzpxY0p-kVRPaqH-wE'
+                'scope': req.header('scope'),
+                'authorization': req.header('authorization')
             }
         },function (error, response, body) {
             var j = JSON.parse(JSON.stringify(body));
@@ -106,7 +106,11 @@ app.get('/Bodega/obtenerInventario',(req, res)=>{
         request.get({
             url:'http://35.231.130.137:' + portBodega + '/Bodega/obtenerInventario',
             json:true,
-            body:req.body
+            body:req.body,
+            headers: {
+                'scope': req.header('scope'),
+                'authorization': req.header('authorization')
+            }
         },function (error, response, body) {
             var j = JSON.parse(JSON.stringify(body));
             res.jsonp(j);
@@ -133,7 +137,11 @@ app.post('/Bodega/realizarDespacho',(req, res)=>{
         request.post({
             url:'http://35.231.130.137:'+portBodega+'/Bodega/realizarDespacho',
             json:true,
-            body:req.body
+            body:req.body,
+            headers: {
+                'scope': req.header('scope'),
+                'authorization': req.header('authorization')
+            }
         },function (error, response, body) {
             var j = JSON.parse(JSON.stringify(body));
             res.jsonp(j);
